@@ -121,6 +121,7 @@ void saveConfigFile() {
 
   if (fileSystem.saveToFile(JSON_CONFIG_FILE, jsonData)) {
     Serial.println("Successfully wrote data to file");
+    shouldSaveConfig = false;
   }
   else {
     Serial.println("Failed to write data to file");
@@ -565,7 +566,7 @@ void displayTextCenter(char str[], int x, int y, int textSize){
 
 void mqttPublishBeacon() {
   StaticJsonDocument<300> doc;
-  doc["CliendId"] = mqttClientId;
+  doc["Id"] = mqttClientId;
   doc["Type"] = "Sensor";
   doc["CollectionInterval"] = updateDHTDelay;
   if (sensorState == 0) {
