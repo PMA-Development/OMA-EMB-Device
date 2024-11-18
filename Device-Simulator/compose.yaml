@@ -1,0 +1,15 @@
+services:
+  emqx:
+    image: emqx:latest
+    restart: always
+    environment:
+      EMQX_NODE__NAME: dev_simulator_emqx@127.0.0.1
+    volumes:
+      - vol-emqx-data:/opt/emqx/data
+      - vol-emqx-log:/opt/emqx/log
+
+volumes:
+  vol-emqx-data:
+    name: dev-simulator-emqx-data
+  vol-emqx-log:
+    name: dev-simulator-emqx-log
