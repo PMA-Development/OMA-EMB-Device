@@ -65,6 +65,9 @@ After flashing the code to the ESP8266, a Wi-Fi AP will now be visible, connect 
 ## Diagram / connection diagram
 This diagram shows how to connect the different modules / components to the ESP8266.
 
+All the sensor types has 2x LEDS, that is used for the sensor states, and is controlled with the ChangeState action.
+Green LED for "On", rd LED for "Off" and the build in LED for "ServiceMode"
+
 ### Weather Station - ESP8266
 This this is the weather station sensor, that deliveres weather data.
 
