@@ -449,20 +449,32 @@ void publishMqttTelemetry(){
   StaticJsonDocument<200> doc;
 
   doc["Id"] = macAddressStr;
-  doc["Type"] = "Weather";
+  doc["Type"] = "WeatherTemperature";
 
   JsonArray jsonAttributeArr = doc.createNestedArray("Attributes");
   JsonObject jsonAttribute_0 = jsonAttributeArr.createNestedObject();
   jsonAttribute_0["Name"] = "Temperature";
   jsonAttribute_0["Value"] = tempC;
 
-  JsonObject jsonAttribute_1 = jsonAttributeArr.createNestedObject();
+  mqttClient.beginMessage(mqttTelemetryTopic);
+  serializeJson(doc, mqttClient);
+  serializeJson(doc, Serial);
+  mqttClient.endMessage();
+  Serial.println();
+
+  StaticJsonDocument<200> doc2;
+
+  doc2["Id"] = macAddressStr;
+  doc2["Type"] = "WeatherHumidity";
+
+  JsonArray jsonAttributeArr1 = doc2.createNestedArray("Attributes");
+  JsonObject jsonAttribute_1 = jsonAttributeArr1.createNestedObject();
   jsonAttribute_1["Name"] = "Humidity";
   jsonAttribute_1["Value"] = humidity;
 
   mqttClient.beginMessage(mqttTelemetryTopic);
-  serializeJson(doc, mqttClient);
-  serializeJson(doc, Serial);
+  serializeJson(doc2, mqttClient);
+  serializeJson(doc2, Serial);
   mqttClient.endMessage();
   Serial.println();
 }

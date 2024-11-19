@@ -79,12 +79,18 @@ Code can be found in folder: WeatherStation
 ```JSON
 {
     "Id": "MyDevice",
-    "Type": "Weather",
+    "Type": "WeatherTemperature",
     "Attributes": [
         {
             "Name": "Temperature",
             "Value": 24
-        },
+        }
+    ]
+}
+{
+    "Id": "MyDevice",
+    "Type": "WeatherHumidity",
+    "Attributes": [
         {
             "Name": "Humidity",
             "Value": 60
