@@ -210,8 +210,7 @@ This Sensor type meassueres the power deliveret from the turbine to the grid.
 
 Code can be found in folder: PowerDelivery
 
-The image is borrowed from DFROBOT, where the connection is the same as for the Generator.
-<img style="background-color:white" src="https://image.dfrobot.com/image/data/SEN0211/190812%20Update/1.jpg" alt="DFROBOT Sketch"/>
+<img style="background-color:white" src="docs/assets/images/PowerDelivery.jpg" alt="DFROBOT Sketch"/>
 
 
 #### Data sample
@@ -285,7 +284,7 @@ to change the state of the sensor
 
 ### Publish
 #### telemetry
-Endpoint for telemetry data
+Endpoint for telemetry data - QoS: 0.
 ```JSON
 {
     "Id": "MyDevice",
@@ -300,7 +299,18 @@ Endpoint for telemetry data
 ```
 
 #### device/inbound/beacon
-Device beacon.
+Device beacon - QoS: 0.
+```JSON
+{
+    "Id": "MyDevice",
+    "Type": "Weather",
+    "State": "On",
+    "CollectionInterval": 5,
+}
+```
+
+#### device/inbound/beacon
+Last will and testament - QoS: 1.
 ```JSON
 {
     "Id": "MyDevice",

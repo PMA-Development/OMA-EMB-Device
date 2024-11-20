@@ -37,6 +37,7 @@ int getOffset(char str[],int *width,int *textSize);
 // ######## MQTT ########
 #define MQTT_TOPIC_PING "device/outbound/ping"
 #define MQTT_TOPIC_BEACON "device/inbound/beacon"
+#define MQTT_TOPIC_LAST_WILL "device/inbound/lastwill"
 #define MQTT_TOPIC_DEVICE_ROOT "device/outbound/"
 
 // off = 0, on = 1, serviceMode = 2
@@ -423,6 +424,8 @@ bool connectToBroker() {
 
   mqttPublishBeacon();
 
+  mqttLastWill();
+
   return true;
 }
 
@@ -574,6 +577,12 @@ void displayTextCenter(char str[], int x, int y, int textSize){
   int offset = getOffset(str, &x, &textSize);
 	display.setCursor(offset,y); // Start at top-left corner
 	display.print(str);
+}
+
+void mqttLastWill() {
+  mqttClient.beginWill(MQTT_TOPIC_LAST_WILL, mqttClientId.length(), false, 1);
+  mqttClient.print(mqttClientId);
+  mqttClient.endWill();
 }
 
 void mqttPublishBeacon() {

@@ -15,6 +15,7 @@
 // ######## MQTT ########
 #define MQTT_TOPIC_PING "device/outbound/ping"
 #define MQTT_TOPIC_BEACON "device/inbound/beacon"
+#define MQTT_TOPIC_LAST_WILL "device/inbound/lastwill"
 #define MQTT_TOPIC_DEVICE_ROOT "device/outbound/"
 
 // ######## State LEDS ########
@@ -407,6 +408,8 @@ bool connectToBroker() {
 
   mqttPublishBeacon();
 
+  mqttLastWill();
+
   return true;
 }
 
@@ -445,6 +448,12 @@ void publishMqttTelemetry(){
   serializeJson(doc, Serial);
   mqttClient.endMessage();
   Serial.println();
+}
+
+void mqttLastWill() {
+  mqttClient.beginWill(MQTT_TOPIC_LAST_WILL, mqttClientId.length(), false, 1);
+  mqttClient.print(mqttClientId);
+  mqttClient.endWill();
 }
 
 void mqttPublishBeacon() {
